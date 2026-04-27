@@ -1,8 +1,8 @@
 import argparse
 import json
 
-from src.core.utils.main import parse_time
 from src.core.interactors.analyze import AnalyzeInteractor
+from src.core.utils.main import parse_time
 from src.datasources.file_repository import FileLogRepository
 from src.datasources.s3_repository import S3LogRepository
 
@@ -19,7 +19,7 @@ def main():
     parser.add_argument("--threshold", type=int, default=3)
 
     args = parser.parse_args()
-    since_dt = parse_since(args.since) if args.since else None
+    since_dt = parse_time(args.since) if args.since else None
 
     # Strategy Pattern: Pick the adapter based on input
     if args.file:
