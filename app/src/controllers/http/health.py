@@ -21,18 +21,16 @@ async def readiness_check():
     If this fails, the ALB will stop sending traffic to this instance.
     """
     try:
-        # Simple call to verify IAM permissions/Network connectivity
         s3 = boto3.client('s3')
-        s3.list_buckets() 
-        return {"status": "ready"}
+        target_bucket = os.getenv("DEFAULT_BUCKET", "your-default-bucket")
+        
+        # This only checks the specific bucket you have access to
+        s3.head_bucket(Bucket=target_bucket)
+        
+        return {"status": "ready", "target": target_bucket}
     except ClientError as e:
         return Response(
-            content=f"S3 connection failed: {str(e)}",
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE
-        )
-    except Exception:
-        return Response(
-            content="Service not ready",
+            content=f"S3 access check failed: {str(e)}",
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE
         )
 

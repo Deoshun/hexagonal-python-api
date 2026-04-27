@@ -5,6 +5,7 @@ resource "aws_lb" "main" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = module.vpc.public_subnets
+  idle_timeout       = 300
 }
 
 # The Target Group (Health check is vital for ECS)
