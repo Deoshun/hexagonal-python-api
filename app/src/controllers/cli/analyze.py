@@ -1,7 +1,7 @@
 import argparse
 import json
 
-from src.controllers.http.analyze import parse_since  # Reuse your date logic
+from src.core.utils.main import parse_time
 from src.core.interactors.analyze import AnalyzeInteractor
 from src.datasources.file_repository import FileLogRepository
 from src.datasources.s3_repository import S3LogRepository
