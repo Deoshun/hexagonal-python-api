@@ -1,6 +1,6 @@
 variable "allowed_s3_buckets" {
   type        = list(string)
-  default     = ["17-04-log-ingest-stg-base"] 
+  default     = ["my-log-bucket"] 
 }
 
 variable "vpc_cidr" {
