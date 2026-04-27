@@ -31,4 +31,4 @@ class AnalyzeInteractor:
                 except Exception:
                     summary.add_parse_error()
                     
-            yield summary
+            return summary
