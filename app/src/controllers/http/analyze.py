@@ -1,11 +1,7 @@
-import asyncio
-import json
-import time
 from typing import Optional
 
 from dateutil import parser
 from fastapi import APIRouter, Query
-from fastapi.responses import StreamingResponse
 
 from src.controllers.http.errors import DomainError
 from src.core.interactors.analyze import AnalyzeInteractor
@@ -37,30 +33,11 @@ async def analyze(
     # 2. Inject Adapter into the Interactor (Use Case)
     interactor = AnalyzeInteractor(repo)
     
-    async def event_generator():
-        last_heartbeat = time.time()
-        
-        for current_summary in interactor.execute(bucket=bucket, prefix=prefix, since=since_dt, threshold=threshold):
-            
-            if time.time() - last_heartbeat > 10:
-                yield json.dumps({
-                    "status": "processing",
-                    "total": current_summary.total,
-                    "byService": current_summary.byService,
-                    "alert": current_summary.alert,
-                    "parseErrors": getattr(current_summary, 'parseErrors', 0)
-                }) + "\n"
-                last_heartbeat = time.time()
-            
-            await asyncio.sleep(0)
-
-        yield json.dumps({
-            "status": "complete",
-            "total": current_summary.total,
-            "byService": current_summary.byService,
-            "alert": current_summary.alert,
-            "parseErrors": getattr(current_summary, 'parseErrors', 0)
-        }) + "\n"
-
-
-    return StreamingResponse(event_generator(), media_type="application/x-ndjson")
+    # 3. Execute logic
+    summary = interactor.execute(bucket=bucket, prefix=prefix, since=since_dt, threshold=threshold)
+    
+    return {
+        "total": summary.total,
+        "byService": summary.byService,
+        "alert": summary.alert
+    }
