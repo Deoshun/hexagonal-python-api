@@ -1,7 +1,24 @@
-# Local
+# Python Hexagonal Architecture w/ Github Workflows & Terraform Infrastucture
 
+This is a python project that uses hexagonal architecture to expose buisness logic via both FastAPI and CLI tool
+
+
+# Local Server Setup
+
+```
 docker build -t log-analyzer ./app
-docker run -p 8000:8000 log-analyzer
+docker run -p 8000:8000 log-analyzer --env-file .env
+
+```
+
+# Cli Setup
+
+```
+pip install -e .
+
+analyze --bucket my-logs --prefix logs/ --threshold 3
+```
+
 
 # How to Deploy
 
