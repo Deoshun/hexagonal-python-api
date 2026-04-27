@@ -20,7 +20,7 @@ jobs:
         run: |
           pip install ruff pytest
           pip install -r app/requirements.txt
-          pip install -r app/requirementsi-dev.txt
+          pip install -r app/requirements-dev.txt
           pip install -e app/
 
       - name: Run Ruff (Linter)
