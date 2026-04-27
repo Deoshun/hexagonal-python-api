@@ -5,17 +5,17 @@ This is a python project that uses hexagonal architecture to expose buisness log
 
 # Local Server Setup
 
+Bucket access requires `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` variables to be set
+
 ```
 docker build -t log-analyzer ./app
 docker run -p 8000:8000 log-analyzer --env-file .env
-
 ```
 
 # Cli Setup
 
 ```
 pip install -e .
-
 analyze --bucket my-logs --prefix logs/ --threshold 3
 ```
 
