@@ -1,13 +1,15 @@
-from typing import Optional
+import asyncio
 import json
 import time
-import asyncio
+from typing import Optional
+
 from dateutil import parser
 from fastapi import APIRouter, Query
+from fastapi.responses import StreamingResponse
+
 from src.controllers.http.errors import DomainError
 from src.core.interactors.analyze import AnalyzeInteractor
 from src.datasources.s3_repository import S3LogRepository
-from fastapi.responses import StreamingResponse
 
 router = APIRouter()
 
