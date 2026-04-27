@@ -1,0 +1,17 @@
+[tool.ruff]
+# Target Python version
+target-version = "py39"
+line-length = 88
+
+[tool.ruff.lint]
+# E: pycodestyle errors
+# F: Pyflakes (unused imports, undefined variables)
+# I: isort (import sorting)
+# B: flake8-bugbear (common design flaws)
+select = ["E", "F", "I", "B"]
+
+# Ignore certain rules if they conflict with your style
+ignore = ["E501"] # Ignore line-too-long (handled by formatter)
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
