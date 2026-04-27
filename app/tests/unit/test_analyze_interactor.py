@@ -17,7 +17,7 @@ def test_analyze_aggregates_errors_correctly():
     interactor = AnalyzeInteractor(stub_repo)
 
     # WHEN: Executing analysis with threshold 2
-    summary = interactor.execute(bucket="test", prefix=None, threshold=2)
+    summary = list(interactor.execute(bucket="test", prefix=None, threshold=2))[-1]
 
     # THEN: Totals should match and alert should trigger
     assert summary.total == 3
@@ -36,7 +36,7 @@ def test_analyze_filters_by_since_timestamp():
     since_dt = datetime(2025, 9, 15, 11, 0, tzinfo=timezone.utc)
 
     # WHEN: Analyzing with 'since' filter
-    summary = interactor.execute(bucket="test", prefix=None, since=since_dt)
+    summary = list(interactor.execute(bucket="test", prefix=None, since=since_dt))[-1]
 
     # THEN: Only the log after 11:00 should be counted
     assert summary.total == 1
@@ -49,7 +49,7 @@ def test_analyze_handles_malformed_json_gracefully():
     interactor = AnalyzeInteractor(stub_repo)
 
     # WHEN: Analyzing
-    summary = interactor.execute(bucket="test", prefix=None)
+    summary = list(interactor.execute(bucket="test", prefix=None))[-1]
 
     # THEN: It should record the parse error and continue to the valid line
     assert summary.parseErrors == 1
