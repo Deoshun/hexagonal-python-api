@@ -1,0 +1,32 @@
+name: PR Quality Check
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install ruff pytest
+          pip install -r app/requirements.txt
+          pip install -e app/
+
+      - name: Run Ruff (Linter)
+        run: ruff check .
+
+      - name: Run Ruff (Formatter)
+        run: ruff format . --check
+
+      - name: Run Unit Tests
+        run: pytest app/tests/
