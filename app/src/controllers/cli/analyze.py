@@ -9,7 +9,7 @@ from src.datasources.s3_repository import S3LogRepository
 
 def main():
     parser = argparse.ArgumentParser(description="Log Analytics CLI")
-    # Make bucket/file mutually exclusive so the user must pick one
+    
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--bucket", help="S3 Bucket name")
     group.add_argument("--file", help="Local path to a .jsonl file")
@@ -21,7 +21,7 @@ def main():
     args = parser.parse_args()
     since_dt = parse_time(args.since) if args.since else None
 
-    # Strategy Pattern: Pick the adapter based on input
+    
     if args.file:
         repo = FileLogRepository()
         source = args.file
@@ -31,7 +31,7 @@ def main():
 
     interactor = AnalyzeInteractor(repo)
     summary = interactor.execute(
-        bucket=source, # The interactor treats this as the 'path'
+        bucket=source, 
         prefix=args.prefix,
         since=since_dt,
         threshold=args.threshold

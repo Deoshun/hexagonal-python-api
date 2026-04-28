@@ -50,4 +50,4 @@ jobs:
         run: |
           terraform apply -auto-approve \
             -var="image_tag=${{ github.sha }}" \
-            -var="allowed_s3_buckets=[\"17-04-log-ingest-stg-base\"]"
+            -var="allowed_s3_buckets=[\"log-bucket\"]"

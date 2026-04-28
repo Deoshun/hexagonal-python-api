@@ -8,7 +8,7 @@ from src.server.app import app
 client = TestClient(app)
 
 def test_analyze_endpoint_success():
-    # We patch the Repository used by the controller to return a stub
+    
     with patch("src.controllers.http.analyze.S3LogRepository") as mock_repo:
         instance = mock_repo.return_value
         instance.get_logs.return_value = iter([
@@ -23,6 +23,6 @@ def test_analyze_endpoint_success():
         assert data["alert"] is True
 
 def test_analyze_endpoint_missing_bucket():
-    # FastAPI handles validation, so missing bucket should be 422
+    
     response = client.get("/analyze")
     assert response.status_code == 422

@@ -1,9 +1,9 @@
-# (Optional) Load environment variables for S3 credentials
+
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 
-# 1. Import the router from your controller
+
 from src.controllers.http.analyze import router as analyze_router
 from src.controllers.http.errors import (
     APIErrorMessage,
@@ -17,8 +17,8 @@ load_dotenv()
 
 app = FastAPI(title="Log Analytics Service")
 
-# 2. Register the router
-# The 'tags' help group these in the /docs (Swagger) UI
+
+
 app.include_router(analyze_router, tags=["Analytics"])
 app.include_router(status_router, tags=["Health"])
 
@@ -26,7 +26,7 @@ app.include_router(status_router, tags=["Health"])
 async def root():
     return {"status": "Log Analytics Service is running"}
 
-# --- Exception Handlers ---
+
 @app.exception_handler(DomainError)
 async def domain_error_handler(request: Request, exc: DomainError) -> JSONResponse:
     error_msg = APIErrorMessage(type=exc.__class__.__name__, message=str(exc))
@@ -46,8 +46,8 @@ async def repository_error_handler(request: Request, exc: RepositoryError) -> JS
 
 @app.exception_handler(Exception)
 async def catch_all_handler(request: Request, exc: Exception) -> JSONResponse:
-    # This prevents the raw Python stack trace from ever reaching the user
-    # Log the real error on the server side for debugging
+    
+    
     print(f"CRITICAL ERROR: {exc}") 
     
     return JSONResponse(

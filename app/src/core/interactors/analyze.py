@@ -20,7 +20,7 @@ class AnalyzeInteractor:
                     log_ts_str = data.get("ts")
                     
                     if since and log_ts_str:
-                        # Parse the log timestamp (usually ISO 8601)
+                        
                         log_ts = parser.isoparse(log_ts_str)
                         
                         if log_ts < since:
