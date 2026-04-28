@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 
-
 from src.controllers.http.analyze import router as analyze_router
 from src.controllers.http.errors import (
     APIErrorMessage,
