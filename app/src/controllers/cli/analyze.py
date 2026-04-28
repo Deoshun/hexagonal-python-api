@@ -15,7 +15,7 @@ def main():
     
     parser.add_argument("--prefix", help="S3 Prefix", default=None)
     parser.add_argument("--since", help="Filter logs since (ISO)", default=None)
-    parser.add_argument("--threshnew", type=int, default=3)
+    parser.add_argument("--threshold", type=int, default=3)
 
     args = parser.parse_args()
     since_dt = parse_time(args.since) if args.since else None
@@ -31,7 +31,7 @@ def main():
     summary = interactor.execute(
         prefix=args.prefix,
         since=since_dt,
-        threshnew=args.threshnew
+        threshold=args.threshold
     )
 
     print(json.dumps(summary.__dict__, indent=2))

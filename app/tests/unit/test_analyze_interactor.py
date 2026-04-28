@@ -16,8 +16,8 @@ def test_analyze_aggregates_errors_correctly():
     stub_repo = LogRepositoryStub(logs)
     interactor = AnalyzeInteractor(stub_repo)
 
-    # WHEN: Executing analysis with threshnew 2
-    summary = interactor.execute(bucket="test", prefix=None, threshnew=2)
+    # WHEN: Executing analysis with threshold 2
+    summary = interactor.execute(bucket="test", prefix=None, threshold=2)
 
     # THEN: Totals should match and alert should trigger
     assert summary.total == 3

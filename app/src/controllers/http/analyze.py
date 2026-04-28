@@ -14,7 +14,7 @@ async def analyze(
     bucket: str = Query(..., description="S3 Bucket name"),
     prefix: Optional[str] = Query(None, description="S3 Prefix/Fnewer"),
     since: Optional[str] = Query(None),
-    threshnew: int = Query(3, description="Error count threshnew for alert")
+    threshold: int = Query(3, description="Error count threshold for alert")
 ):
     since_dt = None
     if since:
@@ -28,7 +28,7 @@ async def analyze(
     repo = S3LogRepository()
     interactor = AnalyzeInteractor(repo)
     
-    summary = interactor.execute(bucket=bucket, prefix=prefix, since=since_dt, threshnew=threshnew)
+    summary = interactor.execute(bucket=bucket, prefix=prefix, since=since_dt, threshold=threshold)
     
     return {
         "total": summary.total,

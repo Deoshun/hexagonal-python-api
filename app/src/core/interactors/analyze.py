@@ -11,8 +11,8 @@ class AnalyzeInteractor:
     def __init__(self, repository: LogRepository):
         self.repository = repository
 
-    def execute(self, bucket, prefix, since: datetime = None, threshnew=3) -> Summary:
-            summary = Summary(threshnew=threshnew)
+    def execute(self, bucket, prefix, since: datetime = None, threshold=3) -> Summary:
+            summary = Summary(threshold=threshold)
             
             for line in self.repository.get_logs(bucket, prefix, since=since):
                 try:

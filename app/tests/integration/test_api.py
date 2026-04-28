@@ -14,7 +14,7 @@ def test_analyze_endpoint_success():
             json.dumps({"ts": "2025-09-15T10:00:00Z", "level": "ERROR", "service": "web"})
         ])
 
-        response = client.get("/analyze?bucket=my-bucket&threshnew=1")
+        response = client.get("/analyze?bucket=my-bucket&threshold=1")
         
         assert response.status_code == 200
         data = response.json()
