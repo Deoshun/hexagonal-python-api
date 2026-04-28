@@ -7,11 +7,11 @@ class Summary:
     total: int = 0
     byService: Dict[str, int] = field(default_factory=dict)
     parseErrors: int = 0
-    threshold: int = 0
+    threshnew: int = 0
 
     @property
     def alert(self) -> bool:
-        return self.total >= self.threshold
+        return self.total >= self.threshnew
 
     def add_error(self, service: str):
         self.total += 1

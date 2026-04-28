@@ -11,8 +11,8 @@ class AnalyzeInteractor:
     def __init__(self, repository: LogRepository):
         self.repository = repository
 
-    def execute(self, bucket, prefix, since: datetime = None, threshold=3) -> Summary:
-            summary = Summary(threshold=threshold)
+    def execute(self, bucket, prefix, since: datetime = None, threshnew=3) -> Summary:
+            summary = Summary(threshnew=threshnew)
             
             for line in self.repository.get_logs(bucket, prefix, since=since):
                 try:
@@ -20,7 +20,6 @@ class AnalyzeInteractor:
                     log_ts_str = data.get("ts")
                     
                     if since and log_ts_str:
-                        # Parse the log timestamp (usually ISO 8601)
                         log_ts = parser.isoparse(log_ts_str)
                         
                         if log_ts < since:
