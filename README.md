@@ -38,6 +38,3 @@ pytest app/tests
 - Hexagonal: Same business logic for cli & rest controllers
 - Security: Granular S3 IAM policies restricted to env-defined buckets.
 - Networking: S3 Gateway Endpoint used to bypass NAT costs and latency.
-
-# Original Code 
-[LINK](https://github.com/Deoshun/hexagonal-python-api/blob/8fdd0d4d6f75287f409f8f2d0a757b7f5155a975/README.md)
