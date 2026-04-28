@@ -24,7 +24,7 @@ async def readiness_check():
         s3 = boto3.client('s3')
         target_bucket = os.getenv("DEFAULT_BUCKET", "your-default-bucket")
         
-        # This only checks the specific bucket you have access to
+        
         s3.head_bucket(Bucket=target_bucket)
         
         return {"status": "ready", "target": target_bucket}

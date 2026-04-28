@@ -19,21 +19,21 @@ async def analyze(
     since_dt = None
     if since:
         try:
-            # This handles '2025-09-15', '2025-09-15T14:00', etc.
+            
             since_dt = parser.parse(since)
-            # Ensure it's timezone aware if your logs are (usually UTC)
+            
             if since_dt.tzinfo is None:
                 from datetime import timezone
                 since_dt = since_dt.replace(tzinfo=timezone.utc)
         except ValueError as err:
             raise DomainError("Invalid date format for 'since'.") from err
-    # Hexagonal Wiring:
-    # 1. Instantiate the Adapter (S3)
+    
+    
     repo = S3LogRepository()
-    # 2. Inject Adapter into the Interactor (Use Case)
+    
     interactor = AnalyzeInteractor(repo)
     
-    # 3. Execute logic
+    
     summary = interactor.execute(bucket=bucket, prefix=prefix, since=since_dt, threshold=threshold)
     
     return {
